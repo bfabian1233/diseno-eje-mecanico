@@ -1,3 +1,5 @@
+import numpy as np
+
 from src.torque import calcular_torque
 from src.reacciones import calcular_reacciones
 from src.diagramas import calcular_diagramas, graficar_diagramas
@@ -22,43 +24,86 @@ torque = calcular_torque(potencia,rpm)
 print(f"\nTorque del eje: {torque:.2f} N·m")
 
 
-# CARGA SOBRE EL EJE
+# ==================================================
+# CARGAS EN DOS PLANOS
+# ==================================================
 
-fuerza = float(input("\nFuerza vertical aplicada [N]: "))
+Fy = float(
+    input("\nFuerza vertical Fy [N]: ")
+)
 
-posicion = float(input("Posición de la fuerza desde el apoyo A [m]: "))
+Fz = float(
+    input("Fuerza horizontal Fz [N]: ")
+)
+
+posicion = float(
+    input("Posición de la carga desde el apoyo A [m]: ")
+)
+
+cargas_y = [
+    (posicion, -abs(Fy))
+]
+
+cargas_z = [
+    (posicion, -abs(Fz))
+]
 
 
-# Fuerza hacia abajo = negativa
-
-cargas = [(posicion, -abs(fuerza))]
-
-
+# ==================================================
 # REACCIONES
+# ==================================================
 
-RA, RB = calcular_reacciones(longitud,cargas)
+RA_y, RB_y = calcular_reacciones(
+    longitud,
+    cargas_y
+)
 
-print("\n REACCIONES EN LOS APOYOS ")
+RA_z, RB_z = calcular_reacciones(
+    longitud,
+    cargas_z
+)
 
-print(f"Reacción en A: {RA:.2f} N")
+print("\n=== REACCIONES PLANO Y ===")
+print(f"RA_y: {RA_y:.2f} N")
+print(f"RB_y: {RB_y:.2f} N")
 
-print(f"Reacción en B: {RB:.2f} N")
+print("\n=== REACCIONES PLANO Z ===")
+print(f"RA_z: {RA_z:.2f} N")
+print(f"RB_z: {RB_z:.2f} N")
 
 
+# ==================================================
 # DIAGRAMAS
+# ==================================================
 
-x, cortante, momento = calcular_diagramas(longitud,cargas,RA,RB)
+x, cortante_y, momento_y = calcular_diagramas(
+    longitud,
+    cargas_y,
+    RA_y,
+    RB_y
+)
+
+x, cortante_z, momento_z = calcular_diagramas(
+    longitud,
+    cargas_z,
+    RA_z,
+    RB_z
+)
 
 
-# MOMENTO MÁXIMO
+# ==================================================
+# MOMENTO RESULTANTE
+# ==================================================
 
-momento_maximo = max(abs(momento))
+momento_resultante = np.sqrt(
+    momento_y**2 + momento_z**2
+)
 
-print(f"\nMomento flector máximo: "f"{momento_maximo:.2f} N·m")
+M_max = np.max(
+    np.abs(momento_resultante)
+)
 
-
-# GENERAR Y GUARDAR GRÁFICAS
-
-graficar_diagramas(x,cortante,momento)
-
-print("\nGráficas guardadas en la carpeta 'resultados'.")
+print(
+    f"\nMomento flector resultante máximo: "
+    f"{M_max:.2f} N·m"
+)
