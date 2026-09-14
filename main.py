@@ -1,7 +1,8 @@
 import math
 
-potencia_kw = 10
-rpm = 1750
+potencia_kw = float(input("Potencia transmitida [kW]: "))
+rpm = float(input("Velocidad de giro [rpm]: "))
+longitud = float(input("Longitud del eje [m]: "))
 
 potencia = potencia_kw * 1000
 
