@@ -4,6 +4,12 @@ import os
 
 
 def calcular_diagramas(longitud, cargas, RA, RB, puntos=500):
+    """
+    Calcula los diagramas de cortante y momento
+    para un eje simplemente apoyado.
+
+    cargas = [(posicion, fuerza), ...]
+    """
 
     x = np.linspace(0, longitud, puntos)
 
@@ -30,40 +36,67 @@ def calcular_diagramas(longitud, cargas, RA, RB, puntos=500):
     return x, cortante, momento
 
 
-def graficar_diagramas(x, cortante, momento):
+def crear_grafica(
+    x,
+    y,
+    titulo,
+    ylabel
+):
 
-    os.makedirs("resultados", exist_ok=True)
+    fig, ax = plt.subplots()
 
-    # Cortante
-    plt.figure()
-    plt.plot(x, cortante)
-    plt.axhline(0)
-    plt.xlabel("Posición [m]")
-    plt.ylabel("Fuerza cortante [N]")
-    plt.title("Diagrama de fuerza cortante")
-    plt.grid()
+    ax.plot(x, y)
 
-    plt.savefig(
-        "resultados/cortante.png",
+    ax.axhline(
+        0,
+        linewidth=0.8
+    )
+
+    ax.fill_between(
+        x,
+        y,
+        0,
+        alpha=0.15
+    )
+
+    ax.set_xlabel(
+        "Posición a lo largo del eje [m]"
+    )
+
+    ax.set_ylabel(
+        ylabel
+    )
+
+    ax.set_title(
+        titulo
+    )
+
+    ax.grid(True)
+
+    fig.tight_layout()
+
+    return fig
+
+
+def guardar_grafica(
+    fig,
+    nombre
+):
+
+    os.makedirs(
+        "resultados",
+        exist_ok=True
+    )
+
+    ruta = os.path.join(
+        "resultados",
+        nombre
+    )
+
+    fig.savefig(
+        ruta,
         dpi=300,
         bbox_inches="tight"
     )
 
-    plt.show()
-
-    # Momento
-    plt.figure()
-    plt.plot(x, momento)
-    plt.axhline(0)
-    plt.xlabel("Posición [m]")
-    plt.ylabel("Momento flector [N·m]")
-    plt.title("Diagrama de momento flector")
-    plt.grid()
-
-    plt.savefig(
-        "resultados/momento.png",
-        dpi=300,
-        bbox_inches="tight"
-    )
-
-    plt.show()
+    return ruta
