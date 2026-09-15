@@ -1,4 +1,4 @@
-\# Diseño y análisis de un eje mecánico
+\#Diseño y análisis de un eje mecánico
 
 
 
@@ -8,7 +8,7 @@ mecánico preliminar de ejes sometidos a flexión y torsión.
 
 
 
-\## Funciones
+\#Funciones
 
 
 
@@ -26,7 +26,7 @@ mecánico preliminar de ejes sometidos a flexión y torsión.
 
 
 
-\## Autor
+\# Autor
 
 
 
