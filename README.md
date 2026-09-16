@@ -1,3 +1,7 @@
+\LINK DE LA CALCULADORA
+
+https://bfabian1233-diseno-eje-mecanico-app-bvgyt4.streamlit.app/
+
 \#Diseño y análisis de un eje mecánico
 
 
