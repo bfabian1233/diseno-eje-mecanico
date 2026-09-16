@@ -40,10 +40,7 @@ torque = calcular_torque(potencia,rpm)
 
 print(f"\nTorque del eje: {torque:.2f} N·m")
 
-
-# ==================================================
 # CARGAS EN DOS PLANOS
-# ==================================================
 
 Fy = float(
     input("\nFuerza vertical Fy [N]: ")
@@ -66,9 +63,7 @@ cargas_z = [
 ]
 
 
-# ==================================================
 # REACCIONES
-# ==================================================
 
 RA_y, RB_y = calcular_reacciones(
     longitud,
@@ -88,10 +83,8 @@ print("\n REACCIONES PLANO Z")
 print(f"RA_z: {RA_z:.2f} N")
 print(f"RB_z: {RB_z:.2f} N")
 
-
-# ==================================================
 # DIAGRAMAS
-# ==================================================
+
 
 x, cortante_y, momento_y = calcular_diagramas(
     longitud,
@@ -107,10 +100,7 @@ x, cortante_z, momento_z = calcular_diagramas(
     RB_z
 )
 
-
-# ==================================================
 # MOMENTO RESULTANTE
-# ==================================================
 
 momento_resultante = np.sqrt(
     momento_y**2 + momento_z**2
@@ -125,9 +115,8 @@ print(
     f"{M_max:.2f} N·m"
 )
 
-# ==================================================
 # GRÁFICAS DE CORTANTE Y MOMENTO
-# ==================================================
+
 
 # Cortante plano Y
 fig_cortante_y = crear_grafica(
@@ -205,9 +194,7 @@ print(
 
 plt.show()
 
-# ==================================================
 # CONCENTRACIÓN DE ESFUERZOS
-# ==================================================
 
 print("\n=== GEOMETRÍA DE LA SECCIÓN CRÍTICA ===")
 
@@ -261,7 +248,7 @@ Kf, Kfs = calcular_factores_fatiga(
     qs
 )
 
-print("\n=== FACTORES DE CONCENTRACIÓN ===")
+print("\n FACTORES DE CONCENTRACIÓN ")
 
 print(f"Kt  = {Kt:.3f}")
 print(f"Kts = {Kts:.3f}")
@@ -269,9 +256,8 @@ print(f"Kts = {Kts:.3f}")
 print(f"Kf  = {Kf:.3f}")
 print(f"Kfs = {Kfs:.3f}")
 
-# ==================================================
 # MOMENTO EN LA SECCIÓN CRÍTICA
-# ==================================================
+
 
 if tipo_geometria in [2, 3]:
 
@@ -308,13 +294,9 @@ else:
     # Para un eje liso usamos el momento máximo global
     M_diseno = M_max
 
-# ==================================================
-# DIMENSIONAMIENTO DEL EJE
-# ==================================================
 
-# ==================================================
 # SELECCIÓN DEL MATERIAL
-# ==================================================
+
 
 materiales = cargar_materiales()
 
@@ -380,9 +362,8 @@ print(
     f"{diametro_comercial:.0f} mm"
 )
 
-# ==================================================
 # VERIFICACIÓN DEL DIÁMETRO COMERCIAL
-# ==================================================
+
 
 d_comercial_m = diametro_comercial / 1000
 
@@ -428,10 +409,8 @@ print(
     f"Factor de seguridad real: "
     f"{n_real:.2f}"
 )
-
-# ==================================================
 # ANÁLISIS DE DEFLEXIÓN
-# ==================================================
+
 
 print("\n ANÁLISIS DE DEFLEXIÓN")
 
@@ -499,9 +478,8 @@ graficar_deformada(
     deflexion_resultante
 )
 
-# ==================================================
 # ANÁLISIS DE FATIGA
-# ==================================================
+
 
 print("\nANÁLISIS DE FATIGA")
 
